@@ -18,13 +18,13 @@ const login = async (req, res) => {
       `Email is wrong or not verify, or password is wrong`
     );
   }
-
   const payload = {
     id: user._id,
   };
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1h" });
   await setTokenLogin(user._id, token);
-  res.json({ status: "success", code: 200, data: { token } });
+  res.status(200);
+  res.json({ message: "Success", data: { token } });
 };
 
 module.exports = login;

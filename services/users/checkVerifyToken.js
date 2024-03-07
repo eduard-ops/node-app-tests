@@ -1,9 +1,9 @@
 const { User } = require("../../models");
 
-const { tryCatchWrapper } = require("../../helpers");
+
 
 const checkVerifyToken = async (verificationToken) => {
-  const data = await tryCatchWrapper(User.findOne({ verificationToken }));
+  const data = await User.findOne({ verificationToken });
   return data;
 };
 

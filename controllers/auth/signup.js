@@ -2,7 +2,7 @@ const { registerUser, checkUser } = require("../../services/auth");
 
 const { createError, sendEmail, mailMessage } = require("../../helpers");
 
-const { v4 } = require("uuid");
+const { v4: uuidv4 } = require('uuid');
 
 const bcrypt = require("bcryptjs");
 
@@ -13,8 +13,9 @@ const signup = async (req, res) => {
   const user = await checkUser(email);
   if (user) {
     throw createError(409, `User with ${email} already exist`);
+          
   }
-  const verificationToken = v4();
+  const verificationToken = uuidv4();
   const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   const avatarURL = gravatar.url(email);
   const result = await registerUser(
@@ -23,16 +24,17 @@ const signup = async (req, res) => {
     avatarURL,
     verificationToken
   );
+
   const mail = mailMessage(email, verificationToken);
   await sendEmail(mail);
-  res.status(201).json({
+  res.status(201);
+  res.json({
     message: "Created",
-    status: 201,
     data: {
       user: {
-        email: result.email,
+        email: result?.email,
         subscription: "starter",
-        verificationToken,
+        verificationToken:  verificationToken,
       },
     },
   });

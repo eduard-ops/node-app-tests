@@ -1,4 +1,5 @@
 const mailMessage = (email, verificationToken) => {
+  console.log(email, verificationToken)
   const message = {
     to: email,
     subject: "Подтверждение email",

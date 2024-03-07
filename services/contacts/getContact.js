@@ -1,9 +1,8 @@
 const { Contact } = require("../../models");
 
-const { tryCatchWrapper } = require("../../helpers");
 
 const getContact = async (id) => {
-  const data = await tryCatchWrapper(Contact.findById(id));
+  const data = await Contact.findById(id);
   return data;
 };
 

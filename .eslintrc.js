@@ -4,6 +4,13 @@ module.exports = {
     es2021: true,
     node: true,
   },
+  overrides: [
+    {
+      env: {
+        jest: true
+      }
+    }
+  ],
   extends: ['standard', 'prettier'],
   parserOptions: {
     ecmaVersion: 12,
